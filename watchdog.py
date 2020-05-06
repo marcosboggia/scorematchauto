@@ -5,17 +5,21 @@ from time import sleep
 from cv2 import imwrite
 from gui_automation import ForegroundHandler
 from uuid import uuid1
+from os import makedirs
+from db import add_failed
 
 
 FINISHED_MSG = 'finished'
 
 fh = ForegroundHandler()
+# Create debug folder
 debug_folder = 'images/debug/'
+makedirs(debug_folder, exist_ok=True)
 
 timer = Queue()
 
 
-def timed(deadline=60):
+def timed(run_id, deadline=60):
     def inner_decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -32,7 +36,9 @@ def timed(deadline=60):
                 except Empty:
                     print(" Failed!")
                     imwrite(debug_folder + f'{str(uuid1())}.jpg', fh.screenshot())
-                    t.kill()
+                    add_failed(run_id)
+                    if t.is_alive():
+                        t.kill()
                     return False
         return wrapper
     return inner_decorator
@@ -44,11 +50,11 @@ def report_success(msg=" Success!"):
         def wrapper(*args, **kwargs):
             sleep(1)  # Some wait time between actions
             if func(*args, **kwargs):
-                timer.put(FINISHED_MSG)
-                sleep(1)  # Some wait time between actions
                 print(msg)
-                return True
+                sleep(1)  # Some wait time between actions
+                timer.put(FINISHED_MSG)
+                return
             else:
-                return False
+                return
         return wrapper
     return inner_decorator
