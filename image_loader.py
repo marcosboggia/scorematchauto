@@ -4,6 +4,7 @@ import cv2
 res_set = 'fullhd_240_full'
 
 # Bluestacks
+bluestacks_home = cv2.imread(f"images/{res_set}/bluestacks_home.PNG")
 bluestacks_icon = cv2.imread(f"images/{res_set}/bluestacks_icon.PNG")
 bluestacks_tab = cv2.imread(f"images/{res_set}/bluestacks_tab.PNG")
 bluestacks_tab_x_folder = f"images/{res_set}/bluestacks_tab_x/"
@@ -20,7 +21,6 @@ sm_closesummary_btn = cv2.imread(f"images/{res_set}/sm_closesummary_btn.PNG")
 freecollect_folder = f"images/{res_set}/freecollect/"
 freecollect_icons = [cv2.imread(freecollect_folder + img_path) for img_path in os.listdir(freecollect_folder)]
 # Ads X buttons
-ads_folder = "images/ads/"
-x_folder = ads_folder + 'x/'
+x_folder = 'images/x/'
 ads_x = [cv2.imread(x_folder + img_path) for img_path in os.listdir(x_folder)]
-ad_resumevideo_btn = cv2.imread(f"{ads_folder}ads_resumevideo_btn.PNG")
+ad_resumevideo_btn = cv2.imread(f"images/{res_set}/ads_resumevideo_btn.PNG")

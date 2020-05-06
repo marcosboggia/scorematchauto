@@ -16,6 +16,9 @@ run_id = create_ads_count()
 @report_success()
 def open_game():
     print("Opening game", end='')
+    while not ga.detect(bluestacks_home, 0.99):
+        sleep(0.1)
+    ga.click()
     while not ga.detect(bluestacks_icon, 0.99):
         sleep(0.5)
     sleep(1)
@@ -92,8 +95,8 @@ def ad():
             for mode in modes:
                 if mode['function'](each, mode['threshold']):
                     mode['handler'].click()
-                    print('found x', end='', flush=True)
-                    sleep(1)
+                    print(' found x', end='', flush=True)
+                    sleep(5)
                     # RESUME VIDEO
                     if ga.detect(ad_resumevideo_btn, 0.98):
                         print(' found resume', end='', flush=True)
