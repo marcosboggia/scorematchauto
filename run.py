@@ -112,9 +112,9 @@ def collect_rewards():
     from db import add_count
     print("Collect", end='')
     # WAIT FOR BACKGROUND
-    while not ga.detect(sm_openedcollect_background, 0.99):
+    while not ga.detect(sm_openedcollect_background, 0.95):
         pass
-    coords = ga.spot.center()
+    coords = ga.spot.center()  # Save coordinates for later
     # WAIT FOR BLUE TICK
     while not ga.detect(sm_aftercollecttick_btn, 0.99):
         ga.click(coords=coords)  # Click background until tick appears
@@ -142,6 +142,7 @@ def close_game():
 
 
 if __name__ == "__main__":
+    print("Starting...")
     while True:
         print()
         if not open_game():

@@ -11,7 +11,7 @@ from db import add_failed
 
 FINISHED_MSG = 'finished'
 
-fh = ForegroundHandler()
+handler = ForegroundHandler()
 # Create debug folder
 debug_folder = 'images/debug/'
 makedirs(debug_folder, exist_ok=True)
@@ -35,7 +35,7 @@ def timed(run_id, deadline=60):
                         deadline = response
                 except Empty:
                     print(" Failed!")
-                    imwrite(debug_folder + f'{str(uuid1())}.jpg', fh.screenshot())
+                    imwrite(debug_folder + f'{str(uuid1())}.jpg', handler.screenshot())
                     add_failed(run_id)
                     if t.is_alive():
                         t.kill()
